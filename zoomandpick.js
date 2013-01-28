@@ -90,9 +90,9 @@
           img.src = ev.target.result;
           img.onload = function() {
             imagetocanvas(this);
-          }
-        }
-      }
+          };
+        };
+      } 
     }
     ev.preventDefault();
   }
@@ -128,7 +128,7 @@
     code += '\n\t\tdiv {float:left;margin:5px;width:50px;height:50px; border:1px solid #fff;}';
     code += '\n\t</style>';
     code += '\n</head>\n<body>\n';
-    for(var i = 0; i < all; i++) {
+    for(i = 0; i < all; i++) {
       code += '\n\t<div class="colour' + (i + 1) + '"></div>';
     }     
     code += '\n</body>\n</html>';
