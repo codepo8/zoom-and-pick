@@ -39,8 +39,8 @@ li {
   list-style: none;
   clear: both;
   padding:0 0 5px 0px;
-  transition: 1s;
-  -webkit-transition: 1s;
+  transition: 0.4s;
+  -webkit-transition: 0.4s;
   max-height: 100px;
   overflow: hidden;
 }

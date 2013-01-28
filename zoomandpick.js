@@ -153,7 +153,8 @@
     localStorage.mypickedcolours = results.innerHTML;
   }
   function retrieve() {
-    if (localStorage.mypickedcolours.indexOf('<') !== -1) {
+    if (localStorage.mypickedcolours && 
+        localStorage.mypickedcolours.indexOf('<') !== -1) {
       results.innerHTML = localStorage.mypickedcolours;
     }
   }
@@ -170,5 +171,5 @@
   drop.addEventListener('drop', getfile, false);
   results.addEventListener('transitionend', removeitem, false);
   results.addEventListener('webkitTransitionEnd', removeitem, false);
-  
+
 })();
