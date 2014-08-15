@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Zoom and Pick - a client-side colour picker and CSS generator</title>
+  <link rel="stylesheet" href="zoomandpick.css">
+  <meta type="description" content="Zoom and pick is a client side tool to pick colours from an image and create the CSS from the chosen colours">
+</head>
+<body>
+  <div id="bar">
+    <h1>Zoom and Pick</h1>
+    <div id="dropbox">
+      <canvas id="drop"></canvas>
+      Drop image here
+    </div>
+    <h2>Your collection <button id="getcode">get code</button></h2>
+    <ul id="results"></ul>
+  </div>
+  <output></output>
+  <div id="info">
+    <p>This is a simple tool to pick colours from images.</p>
+    <p>Simply drag and drop an image to the field on the left and move your mouse around on the image to see the colour.</p>
+    <p>Click your mouse to pick a colour and add it to your collection below.</p>
+    <p>Press the "get code" button to get an HTML document with all your picked colours to copy+paste. You can also <a href="http://www.youtube.com/watch?v=nuqEHQlJBgg">watch this screencast</a> for all the information needed.</p>
+  </div>
+  <canvas></canvas>
+  <div id="codebox">
+    <h2>Copy your code below:</h2>
+    <textarea></textarea>
+    <button id="hidecode">Done copying</button>
+  </div>
+  <footer>
+    <p>
+      Written by <a href="http://christianheilmann.com">Chris Heilmann</a> - 
+      <a href="http://twitter.com/codepo8">@codepo8</a> - 
+      <a href="https://github.com/codepo8/zoom-and-pick">Code on GitHub</a>
+    </p>
+  </footer>
+  <script src="zoomandpick.js"></script>
+</body>
+</html>
