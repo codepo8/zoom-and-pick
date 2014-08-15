@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Pixel colour from dropped image</title>
+	<style type="text/css">
+		body {
+			background: #333;
+			color: #eee;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		p {
+			text-align: center;
+			font-size: 2rem;
+		}
+		canvas {
+			background: #000;
+			display: block;
+			position: relative;
+			margin: 20px auto;
+		}
+		canvas.over {
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<p>Drop an image below</p>
+	<canvas></canvas>
+	<script type="text/javascript">
+		var c = document.querySelector('canvas'),
+		    cx = c.getContext('2d');
+		c.addEventListener('dragover', function(ev){
+	    this.classList.add('over');
+			ev.preventDefault();
+		}, false);
+		c.addEventListener('drop', function(ev) {
+	    this.classList.remove('over');
+	    var files = ev.dataTransfer.files;
+	    if (files.length > 0) {
+	      if (files[0].type.indexOf('image') !== -1) {
+	        var reader = new FileReader();
+	        reader.readAsDataURL(files[0]);
+	        reader.onload = function (ev) {
+	          var img = new Image();
+	          img.src = ev.target.result;
+	          img.onload = function() {
+	          	var w = img.naturalWidth,
+	          	    h = img.naturalHeight
+						  c.width = w;
+						  c.height = h;
+						  cx.drawImage(img, 0, 0);
+						  it = 0;
+						  pixels = cx.getImageData(0, 0, w, h);
+							(function animloop(){
+							  requestAnimFrame(animloop);
+							  var y = parseInt(Math.cos(it*1.3)*(h/2-30) * Math.sin(it) + h/2);
+   						  $d011(0,y, w, h, img);
+   						  it+=.02;
+							})();
+	          };
+	        };
+	      } 
+	    }
+			ev.preventDefault();
+		}, false);
+
+    window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       || 
+              window.webkitRequestAnimationFrame || 
+              window.mozRequestAnimationFrame    || 
+              window.oRequestAnimationFrame      || 
+              window.msRequestAnimationFrame     || 
+              function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+              };
+    })();
+ 			
+ 		
+ 		function $d011(x, y, w, h, img) {
+			var p;
+			if (y > 25) {
+			cx.clearRect(0,0,w,h);
+			cx.drawImage(img,0,y-25,w,50,0,y-25,w,50);
+			for(i=0;i<w;i++) {
+				cx.beginPath();
+				cx.moveTo(i,y+25);
+				p = pixelcolour(i,y+25);
+				cx.strokeStyle = 'rgba('+p.r+','+p.g+','+p.b+','+ p.a/255+')';
+				cx.lineTo(i,h);
+				cx.stroke();
+				cx.closePath();
+				cx.beginPath();
+				cx.moveTo(i,y-25);
+				p = pixelcolour(i,y-25);
+				cx.strokeStyle = 'rgba('+p.r+','+p.g+','+p.b+','+ p.a/255+')';
+				cx.lineTo(i,0);
+				cx.stroke();
+				cx.closePath();
+			} 
+
+			}
+
+		}
+
+		function pixelcolour(x, y) {
+		  var index = ((y * (pixels.width * 4)) + (x * 4)),
+		      red = pixels.data[index],
+		      green = pixels.data[index + 1],
+		      blue = pixels.data[index + 2],
+		      a = pixels.data[index + 3];
+		  return {r:red, g:green, b:blue, a:a};
+		}
+
+	</script>
+</body>
+</html>

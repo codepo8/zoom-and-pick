@@ -94,6 +94,9 @@ h2 {
   width: 500px;
   line-height: 1.3em;
 }
+#info a {
+  color: lime;
+}
 #info.hidden {
   display: none;
 }
